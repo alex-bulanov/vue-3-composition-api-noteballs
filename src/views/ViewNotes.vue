@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { v4 as uuidv4 } from 'uuid'
 import { ref } from 'vue'
 import type { Note } from '@/types'
 
@@ -16,6 +17,21 @@ const notes = ref<Note[]>([
     content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, placeat?'
   }
 ])
+
+const newNoteRef = ref<HTMLTextAreaElement | null>(null)
+const newNote = ref<string>('')
+
+const handleAddNote = () => {
+  const note = {
+    id: uuidv4(),
+    content: newNote.value
+  } as Note
+
+  notes.value.unshift(note)
+
+  newNote.value = ''
+  newNoteRef.value?.focus()
+}
 </script>
 
 <template>
@@ -25,13 +41,24 @@ const notes = ref<Note[]>([
       <div class="field">
         <label class="label">Новая заметка</label>
         <div class="control">
-          <textarea class="textarea" placeholder="Введите текст заметки"></textarea>
+          <textarea
+            ref="newNoteRef"
+            v-model="newNote"
+            class="textarea"
+            placeholder="Введите текст заметки"
+          ></textarea>
         </div>
       </div>
 
       <div class="field is-grouped is-grouped-right">
         <div class="control">
-          <button class="button is-link has-background-success">Добавить новую заметку</button>
+          <button
+            class="button is-link has-background-success"
+            :disabled="!newNote"
+            @click="handleAddNote"
+          >
+            Добавить новую заметку
+          </button>
         </div>
       </div>
     </div>
