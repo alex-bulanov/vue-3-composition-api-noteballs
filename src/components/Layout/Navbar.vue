@@ -6,7 +6,7 @@ const showMobileNav = ref<boolean>(false)
 
 <template>
   <nav class="navbar is-success" role="navigation" aria-label="main navigation">
-    <div class="container">
+    <div class="container px-4">
       <div class="navbar-brand">
         <RouterLink class="navbar-item is-size-3 is-family-code has-text-weight-semibold" to="/"
           >Noteballs</RouterLink
