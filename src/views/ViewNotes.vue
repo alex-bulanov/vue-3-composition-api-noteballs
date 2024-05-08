@@ -1,8 +1,26 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+import type { Note } from '@/types'
+
+const notes = ref<Note[]>([
+  {
+    id: 'id1',
+    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, placeat?'
+  },
+  {
+    id: 'id2',
+    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, placeat?'
+  },
+  {
+    id: 'id3',
+    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, placeat?'
+  }
+])
+</script>
 
 <template>
   <div class="view-notes">
-    <!--  -->
+    <!--   -->
     <div class="card px-4 py-3">
       <div class="field">
         <label class="label">Новая заметка</label>
@@ -18,13 +36,10 @@
       </div>
     </div>
     <!--  -->
-    <div v-for="_ in 3" :key="_" class="card">
-      <header class="card-header">
-        <p class="card-header-title">Component</p>
-      </header>
+    <div v-for="note in notes" :key="note.id" class="card">
       <div class="card-content">
         <div class="content">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, placeat?
+          {{ note.content }}
         </div>
       </div>
       <footer class="card-footer">
