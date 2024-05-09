@@ -2,7 +2,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import { ref } from 'vue'
 import NoteCard from '@/components/Notes/NoteCard.vue'
-
 import type { Note } from '@/types'
 
 const notes = ref<Note[]>([
