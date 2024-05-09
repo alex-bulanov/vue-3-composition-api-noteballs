@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { v4 as uuidv4 } from 'uuid'
 import { ref } from 'vue'
+import NoteCard from '@/components/Notes/NoteCard.vue'
+
 import type { Note } from '@/types'
 
 const notes = ref<Note[]>([
@@ -63,16 +65,6 @@ const handleAddNote = () => {
       </div>
     </div>
     <!--  -->
-    <div v-for="note in notes" :key="note.id" class="card">
-      <div class="card-content">
-        <div class="content">
-          {{ note.content }}
-        </div>
-      </div>
-      <footer class="card-footer">
-        <a href="#" class="card-footer-item">Редактировать</a>
-        <a href="#" class="card-footer-item">Удалить</a>
-      </footer>
-    </div>
+    <NoteCard v-for="note in notes" :key="note.id" :note="note" />
   </div>
 </template>
