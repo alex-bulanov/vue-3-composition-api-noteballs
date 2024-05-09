@@ -2,20 +2,20 @@
 import { v4 as uuidv4 } from 'uuid'
 import { ref } from 'vue'
 import NoteCard from '@/components/Notes/NoteCard.vue'
-import type { Note } from '@/types'
+import type { ID, Note } from '@/types'
 
 const notes = ref<Note[]>([
   {
     id: 'id1',
-    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, placeat?'
+    content: '1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, placeat?'
   },
   {
     id: 'id2',
-    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, placeat?'
+    content: '2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, placeat?'
   },
   {
     id: 'id3',
-    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, placeat?'
+    content: '3 Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, placeat?'
   }
 ])
 
@@ -32,6 +32,13 @@ const handleAddNote = () => {
 
   newNote.value = ''
   newNoteRef.value?.focus()
+}
+const handleDeleteNote = (noteID: ID) => {
+  const findIndex = notes.value.findIndex((item) => item.id === noteID)
+
+  if (findIndex !== -1) {
+    notes.value.splice(findIndex, 1)
+  }
 }
 </script>
 
@@ -64,6 +71,6 @@ const handleAddNote = () => {
       </div>
     </div>
     <!--  -->
-    <NoteCard v-for="note in notes" :key="note.id" :note="note" />
+    <NoteCard v-for="note in notes" :key="note.id" :note="note" @delete="handleDeleteNote" />
   </div>
 </template>

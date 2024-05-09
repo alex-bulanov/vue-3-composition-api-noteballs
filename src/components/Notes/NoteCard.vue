@@ -1,18 +1,25 @@
 <script setup lang="ts">
-import type { Note } from '@/types'
+import type { ID, Note } from '@/types'
 import { computed } from 'vue'
-import useUtils from '@/composables/useUtils.ts'
+import useUtils from '@/composables/useUtils'
 
 interface Props {
   note: Note
 }
 
 const props = defineProps<Props>()
+const emits = defineEmits<{
+  (e: 'delete', id: ID): void
+}>()
 
 const { declOfNum } = useUtils()
 const charactersLength = computed(() => {
   return `${props.note.content.length} ${declOfNum(props.note.content.length, ['символ', 'символа', 'символов'])}`
 })
+
+const handleDelete = () => {
+  emits('delete', props.note.id)
+}
 </script>
 
 <template>
@@ -28,7 +35,7 @@ const charactersLength = computed(() => {
     </div>
     <footer class="card-footer">
       <a href="#" class="card-footer-item">Редактировать</a>
-      <a href="#" class="card-footer-item">Удалить</a>
+      <a href="#" class="card-footer-item" @click.prevent="handleDelete">Удалить</a>
     </footer>
   </div>
 </template>
